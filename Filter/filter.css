@@ -1,0 +1,14 @@
+.button {
+    margin-left: 10px;
+}
+
+.checkbox {
+    margin-right: 10px;
+}
+
+.text {
+    display: block;
+    width: 225px;
+    height: 100px;
+    margin-top: 10px;
+}
