@@ -10,27 +10,31 @@ var Item = React.createClass({
         price: React.PropTypes.string.isRequired,
         name: React.PropTypes.string.isRequired,
         isSelected: React.PropTypes.bool.isRequired,
+        cbSelectItem: React.PropTypes.func.isRequired,
+        cbDeleteItem: React.PropTypes.func.isRequired,
       })
     )
   },
   
-  delete: function() {
+  
+  delete: function(eo) {
     eo.stopPropagation;
     this.props.cbDeleteItem (this.props.code)
   },
   
-  select: function() {
-    this.props.cbSelectItem (this.props.code)
+  select: function () {
+    this.props.cbSelectItem(this.props.code)
   },
+    
 
   render: function () {
-      return  React.DOM.tr({ key: v.code, className: 'Item', onClick: this.select },
+      return  React.DOM.tr({key: this.props.code, onClick: this.select, className: this.props.isSelected === true? 'active':''},
         React.DOM.td(null,
-          React.DOM.img({ src: v.url, className: 'Img' },),
+          React.DOM.img({src: this.props.url, className: 'Img' },),
         ),
-        React.DOM.td({ className: 'Name' }, v.name),
-        React.DOM.td({ className: 'Price' }, v.price),
-        React.DOM.td({ className: 'Count' }, v.count),
+        React.DOM.td({ className: 'Name' }, this.props.name),
+        React.DOM.td({ className: 'Price' }, this.props.price),
+        React.DOM.td({ className: 'Count' }, this.props.count),
         React.DOM.td({},
           React.DOM.input({ className: 'ButtonDel', type: 'button', value: 'Удалить', onClick: this.delete }),
         ),

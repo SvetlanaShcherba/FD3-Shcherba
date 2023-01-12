@@ -21,7 +21,7 @@ var Shop = React.createClass({
   },
 
   selectItem: function (code) {
-    this.setState({ selectedItemCode: code })   
+    this.setState({ selectedItemCode: code });
   },
   
   deleteItem: function (code) {
@@ -30,29 +30,28 @@ var Shop = React.createClass({
   },
   
   render: function () {
-      var itemsCode = this.state.items.forEach(v => 
-              
-      React.createElement(Item,
-        { name: v.name },
-        { code: v.code },
-        { price: v.priсe },
-        { isSelected: v.code === this.selectedItemCode },
-        { cbDeleteItem: this.deleteItem },
-        { cbSelectItem: this.selectedItem },
-      ),
-      
-    )
-
+    
     return React.DOM.div( { className: 'Shop' },
       React.DOM.h1(null, "Cписок товаров"),
       React.DOM.table({ className: 'Items' },
-        React.DOM.tbody(null, itemsCode),
+        React.DOM.tbody(null,
+          this.state.items.map(v => 
+            React.createElement(Item,
+              { 
+                key: v.code,
+                name: v.name,
+                code: v.code,
+                price: v.price,
+                url: v.url,
+                count: v.count,
+                isSelected: v.code === this.state.selectedItemCode,
+                cbDeleteItem: this.deleteItem,
+                cbSelectItem: this.selectItem },
+            ),
+          )
+        ),
       )  
     );
-
-    
-
   },
-
 });
 
