@@ -1,0 +1,33 @@
+.Shop {
+    text-align: center;
+
+}
+
+td {
+    border: 2px solid green;
+
+
+}
+
+.Items {
+    margin: auto;
+    border-collapse: collapse;
+}
+
+.Img {
+    width: 200px;
+    height: auto;
+}
+
+.Price,
+.Count {
+    padding: 10px
+}
+
+.ButtonDel {
+    margin: 0 10px;
+}
+
+.active {
+    background-color: lightgreen;
+}

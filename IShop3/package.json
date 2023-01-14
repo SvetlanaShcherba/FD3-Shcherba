@@ -1,0 +1,12 @@
+{
+  "name": "ishop3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "shop.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":.\\node_modules\.bin\lite-server,
+  },
+  "author": "",
+  "license": "ISC"
+}
