@@ -32,7 +32,7 @@ var Shop = React.createClass({
   render: function () {
     
     return React.DOM.div( { className: 'Shop' },
-      React.DOM.h1(null, "Cписок товаров"),
+      React.DOM.h1(null, "Cписок всех товаров"),
       React.DOM.table({ className: 'Items' },
         React.DOM.tbody(null,
           this.state.items.map(v => 

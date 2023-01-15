@@ -28,11 +28,11 @@ var Item = React.createClass({
     
 
   render: function () {
-      return  React.DOM.tr({key: this.props.code, onClick: this.select, className: this.props.isSelected === true? 'active':''},
+      return  React.DOM.tr({key: this.props.code, onClick: this.select, className: this.props.isSelected === true? 'active':""},
         React.DOM.td(null,
           React.DOM.img({src: this.props.url, className: 'Img' },),
         ),
-        React.DOM.td({ className: 'Name' }, this.props.name),
+        React.DOM.td({ className: "Name" }, this.props.name),
         React.DOM.td({ className: 'Price' }, this.props.price),
         React.DOM.td({ className: 'Count' }, this.props.count),
         React.DOM.td({},
