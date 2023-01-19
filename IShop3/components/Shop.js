@@ -34,26 +34,25 @@ class Shop extends React.Component {
 
   render () {
     
+    const code = this.state.items.map(v =>
+      <Item
+        key={v.code}
+        name={v.name}
+        code={v.code}
+        price={v.price}
+        url={v.url}
+        count={v.count}
+        isSelected={v.code === this.state.selectedItemCode}
+        cbDeleteItem={this.deleteItem}
+        cbSelectItem={this.selectItem}
+      />
+    );  
+
     return (
       <div className='Shop'>
         <h1>{"Cписок товаров"}</h1>
         <table className='Items'>,
-          <tbody>
-            {(this.state.items.map(v =>
-              <Item
-                key={v.code}
-                name={v.name}
-                code={v.code}
-                price={v.price}
-                url={v.url}
-                count={v.count}
-                isSelected={v.code === this.state.selectedItemCode}
-                cbDeleteItem={this.deleteItem}
-                cbSelectItem={this.selectItem}
-              />
-              )
-            )}            
-          </tbody>
+          <tbody>{code}</tbody>
         </table>  
       </div>  
     );
