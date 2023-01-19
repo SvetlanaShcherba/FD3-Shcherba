@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DOM from 'react-dom-factories';
 
 import './Shop.css';
 
@@ -35,26 +34,28 @@ class Shop extends React.Component {
 
   render () {
     
-    return DOM.div( { className: 'Shop' },
-      DOM.h1(null, "Cписок товаров"),
-      DOM.table({ className: 'Items' },
-        DOM.tbody(null,
-          this.state.items.map(v => 
-            React.createElement(Item,
-              { 
-                key: v.code,
-                name: v.name,
-                code: v.code,
-                price: v.price,
-                url: v.url,
-                count: v.count,
-                isSelected: v.code === this.state.selectedItemCode,
-                cbDeleteItem: this.deleteItem,
-                cbSelectItem: this.selectItem },
-            )
-          )
-        )
-      )  
+    return (
+      <div className='Shop'>
+        <h1>{"Cписок товаров"}</h1>
+        <table className='Items'>,
+          <tbody>
+            {(this.state.items.map(v =>
+              <Item
+                key={v.code}
+                name={v.name}
+                code={v.code}
+                price={v.price}
+                url={v.url}
+                count={v.count}
+                isSelected={v.code === this.state.selectedItemCode}
+                cbDeleteItem={this.deleteItem}
+                cbSelectItem={this.selectItem}
+              />
+              )
+            )}            
+          </tbody>
+        </table>  
+      </div>  
     );
   }
 

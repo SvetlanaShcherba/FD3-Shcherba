@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import DOM from 'react-dom-factories';
+
 
 import './Item.css';
 
@@ -30,17 +30,26 @@ class Item extends React.Component {
   };
 
   render () {
-      return  DOM.tr({key: this.props.code, onClick: this.select, className: this.props.isSelected === true? 'active':""},
-        DOM.td(null,
-          DOM.img({src: this.props.url, className: 'Img' },),
-        ),
-        DOM.td({ className: "Name" }, this.props.name),
-        DOM.td({ className: 'Price' }, this.props.price),
-        DOM.td({ className: 'Count' }, this.props.count),
-        DOM.td({},
-          DOM.input({ className: 'ButtonDel', type: 'button', value: 'Удалить', onClick: this.delete }),
-        ),
-      )      
+    return (
+      <tr className={this.props.isSelected === true? 'active':""}
+        key={this.props.code}
+        onClick={this.select}>
+        <td>
+          <img className='Img' src={this.props.url}></img>
+        </td>
+        <td className='Name'>{this.props.name}</td>
+        <td className='Price'>{this.props.price}</td>
+        <td className='Count'>{this.props.count}</td>
+        <td>
+          <input
+            className='ButtonDel'
+            type='button'
+            value='Удалить'
+            onClick={this.delete}
+          />
+        </td>  
+      </tr>
+    )      
   }
 }
 

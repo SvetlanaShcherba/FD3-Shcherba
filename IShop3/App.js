@@ -8,7 +8,7 @@ let itemsArr=require('./items.json');
 ReactDOM.render(
   <Shop
     startItems={itemsArr}
-  />,
-  document.getElementById('container')
+  />
+  , document.getElementById('container')
 );
 
