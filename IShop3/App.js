@@ -6,7 +6,9 @@ import Shop from './components/Shop';
 let itemsArr=require('./items.json');
 
 ReactDOM.render(
-  React.createElement(Shop,
-      { startItems: itemsArr }),
+  <Shop
+    startItems={itemsArr}
+  />,
   document.getElementById('container')
 );
+
