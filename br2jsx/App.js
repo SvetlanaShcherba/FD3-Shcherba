@@ -8,8 +8,8 @@ let text="первый<br>второй<br/>третий<br />последний"
 ReactDOM.render(
   <BR2JSX
     className={"text"}
-    text={text}
-  />
+    text={text}>
+  </BR2JSX>
   , document.getElementById('container')
 );
 
