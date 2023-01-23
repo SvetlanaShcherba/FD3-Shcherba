@@ -15,13 +15,14 @@ static propTypes = {
   
   render () {
     let lines = this.props.text.split(/<br *\/?>/);
+    
     let lines2 = [];
     for (let i = 0; i < lines.length; i++) {
       if (i)
-        lines2.push(<br />);
+        lines2.push(<br key={i}></br>);
       lines2.push(lines[i]);
     }
-    
+    console.log(lines2);
     return lines2;
   }
      
