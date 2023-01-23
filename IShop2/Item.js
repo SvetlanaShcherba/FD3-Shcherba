@@ -18,7 +18,7 @@ var Item = React.createClass({
   
   
   delete: function(eo) {
-    eo.stopPropagation;
+    eo.stopPropagation();
     this.props.cbDeleteItem (this.props.code)
   },
   
