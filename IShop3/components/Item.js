@@ -29,26 +29,43 @@ class Item extends React.Component {
     this.props.cbSelectItem(this.props.code)
   };
 
+  edit = () => { 
+    
+  };
+
+
   render () {
     return (
       <tr className={this.props.isSelected === true? 'active':""}
-        key={this.props.code}
-        onClick={this.select}>
-        <td>
-          <img className='Img' src={this.props.url}></img>
-        </td>
-        <td className='Name'>{this.props.name}</td>
-        <td className='Price'>{this.props.price}</td>
-        <td className='Count'>{this.props.count}</td>
-        <td>
-          <input
-            className='ButtonDel'
-            type='button'
-            value='Удалить'
-            onClick={this.delete}
-          />
-        </td>  
-      </tr>
+          key={this.props.code}
+          onClick={this.select}>
+          <td>
+            <img className='Img' src={this.props.url}></img>
+          </td>
+          <td className='Name'>{this.props.name}</td>
+          <td className='Price'>{this.props.price}</td>
+          <td className='Count'>{this.props.count}</td>
+
+          <td>
+            <input
+              className='Button'
+              type='button'
+              value='Удалить'
+              onClick={this.delete}
+            />
+          </td>
+          
+          <td>
+            <input
+              className='Button'
+              type='button'
+              value='Редактировать'
+              onClick={this.edit}
+            />
+          </td> 
+        </tr>
+    
+      
     )      
   }
 }

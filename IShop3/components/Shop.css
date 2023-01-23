@@ -1,16 +1,10 @@
-﻿.Shop {
-  text-align: center;
-
-}
-
+﻿
 td {
   border: 2px solid rgb(8, 146, 8);
-
-
 }
 
 .Items {
-  margin: auto;
+  
   border-collapse: collapse;
 }
 
@@ -19,7 +13,6 @@ td {
   height: auto;
 }
 
-
-.ButtonDel {
-  margin: 0 10px;
+.ButtonNewProduct {
+  margin-top: 15px;
 }

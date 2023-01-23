@@ -1,12 +1,9 @@
 .Shop {
   text-align: center;
-
 }
 
 td {
   border: 2px solid rgb(8, 146, 8);
-
-
 }
 
 .Items {
@@ -19,9 +16,8 @@ td {
   height: auto;
 }
 
-
-.ButtonDel {
-  margin: 0 10px;
+.ButtonNewProduct {
+  margin-top: 15px;
 }
 
 td {
@@ -43,11 +39,16 @@ td {
     padding: 10px
 }
 
-.ButtonDel {
+.Button {
     margin: 0 10px;
 }
 
 .active {
     background-color: lightgreen;
+}
+
+.itemCard {
+    position: absolute;
+    left: 500px;
 }
 /*# sourceMappingURL=bundle.css.map*/

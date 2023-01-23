@@ -1,10 +1,11 @@
 
 td {
     border: 2px solid rgb(8, 146, 8);
+    text-align: center;
 }
 
 .Items {
-    margin: auto;
+    
     border-collapse: collapse;
 }
 
@@ -18,10 +19,15 @@ td {
     padding: 10px
 }
 
-.ButtonDel {
+.Button {
     margin: 0 10px;
 }
 
 .active {
     background-color: lightgreen;
+}
+
+.itemCard {
+    position: absolute;
+    left: 500px;
 }
