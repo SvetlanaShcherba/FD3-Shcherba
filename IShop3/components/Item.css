@@ -27,7 +27,10 @@ td {
     background-color: lightgreen;
 }
 
-.itemCard {
+.ItemCard {
     position: absolute;
-    left: 500px;
+    top: 100px;
+    left: 750px;
+    text-align: left;
+    border: none;
 }

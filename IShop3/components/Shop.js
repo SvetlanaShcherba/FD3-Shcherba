@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import './Shop.css';
 
 import Item from './Item';
-import ItemCard from './ItemCard';
 
 class Shop extends React.Component {
 
@@ -33,8 +32,6 @@ class Shop extends React.Component {
     this.setState({ items: newItems });
   };
 
-  
-
   render () {
     
     const code = this.state.items.map(v =>
@@ -51,20 +48,7 @@ class Shop extends React.Component {
       />
     ); 
     
-    const itemCardCode = this.state.items.map(v =>
-      <ItemCard
-        key={v.code}
-        name={v.name}
-        code={v.code}
-        price={v.price}
-        url={v.url}
-        count={v.count}
-        isSelected={v.code === this.state.selectedItemCode}
-        cbDeleteItem={this.deleteItem}
-        cbSelectItem={this.selectItem}
-      />
-    ); 
-    
+       
 
     return (
       <div className='Shop'>
@@ -79,11 +63,7 @@ class Shop extends React.Component {
             value='Новый товар'
             onClick={this.newProduct}
         />
-
-        <div>
-          {itemCardCode}
-        </div>  
-
+ 
      </div>  
     );
   }

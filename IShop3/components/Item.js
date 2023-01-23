@@ -36,34 +36,48 @@ class Item extends React.Component {
 
   render () {
     return (
-      <tr className={this.props.isSelected === true? 'active':""}
-          key={this.props.code}
-          onClick={this.select}>
-          <td>
-            <img className='Img' src={this.props.url}></img>
-          </td>
-          <td className='Name'>{this.props.name}</td>
-          <td className='Price'>{this.props.price}</td>
-          <td className='Count'>{this.props.count}</td>
+      
+        <tr className={this.props.isSelected === true? 'active':""}
+            key={this.props.code}
+            onClick={this.select}>
+            <td>
+              <img className='Img' src={this.props.url}></img>
+            </td>
+            <td className='Name'>{this.props.name}</td>
+            <td className='Price'>{this.props.price}</td>
+            <td className='Count'>{this.props.count}</td>
 
-          <td>
-            <input
-              className='Button'
-              type='button'
-              value='Удалить'
-              onClick={this.delete}
-            />
+            <td>
+              <input
+                className='Button'
+                type='button'
+                value='Удалить'
+                onClick={this.delete}
+              />
+            </td>
+            
+            <td>
+              <input
+                className='Button'
+                type='button'
+                value='Редактировать'
+                onClick={this.edit}
+              />
+        </td> 
+        
+        {this.props.isSelected &&
+          <td className='ItemCard '>
+            <h2>{this.props.name}</h2>
+            <span>{this.props.name}</span><br />
+            <span>{"Стоимость: " + this.props.price}</span>
           </td>
-          
-          <td>
-            <input
-              className='Button'
-              type='button'
-              value='Редактировать'
-              onClick={this.edit}
-            />
-          </td> 
+        }
+
         </tr>
+        
+        
+
+      
     
       
     )      
