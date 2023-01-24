@@ -21,7 +21,7 @@ class Item extends React.Component {
   };
 
   delete = (eo) => {
-    eo.stopPropagation;
+    eo.stopPropagation();
     this.props.cbDeleteItem (this.props.code)
   };
 
