@@ -36,8 +36,7 @@ var filter=React.createClass({
     },
     
     render() {
-        var lrt = 'cvxcv';
-
+        
         return React.DOM.div({},
             React.DOM.input({className: 'checkbox', type: 'checkbox', checked: this.state.isSorted, onClick: this.sortChanged }),
             React.DOM.input({ type: 'text', value: this.state.filterStr, onChange: this.filterChanged }),
