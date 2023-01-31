@@ -468,7 +468,7 @@ var _Shop2 = _interopRequireDefault(_Shop);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var itemsArr = __webpack_require__(30);
+var itemsArr = __webpack_require__(29);
 
 _reactDom2.default.render(_react2.default.createElement(_Shop2.default, {
   startItems: itemsArr
@@ -30617,20 +30617,6 @@ var Shop = function (_React$Component) {
         });
       });
 
-      var itemCardCode = this.state.items.map(function (v) {
-        return _react2.default.createElement(_ItemCard2.default, {
-          key: v.code,
-          name: v.name,
-          code: v.code,
-          price: v.price,
-          url: v.url,
-          count: v.count,
-          isSelected: v.code === _this2.state.selectedItemCode,
-          cbDeleteItem: _this2.deleteItem,
-          cbSelectItem: _this2.selectItem
-        });
-      });
-
       return _react2.default.createElement(
         'div',
         { className: 'Shop' },
@@ -30642,7 +30628,6 @@ var Shop = function (_React$Component) {
         _react2.default.createElement(
           'table',
           { className: 'Items' },
-          ',',
           _react2.default.createElement(
             'tbody',
             null,
@@ -30655,11 +30640,9 @@ var Shop = function (_React$Component) {
           value: '\u041D\u043E\u0432\u044B\u0439 \u0442\u043E\u0432\u0430\u0440',
           onClick: this.newProduct
         }),
-        _react2.default.createElement(
-          'div',
-          { style: visibility = this.state.selectedItemCode !== '' ? 'visible' : "hidden" },
-          itemCardCode
-        )
+        _react2.default.createElement(_ItemCard2.default, {
+          key: this.state.selectedItemCode
+        })
       );
     }
   }]);
@@ -31741,7 +31724,7 @@ var Item = function (_React$Component) {
     }
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(args))), _this), _this.delete = function (eo) {
-      eo.stopPropagation;
+      eo.stopPropagation();
       _this.props.cbDeleteItem(_this.props.code);
     }, _this.select = function () {
       _this.props.cbSelectItem(_this.props.code);
@@ -31795,6 +31778,26 @@ var Item = function (_React$Component) {
             value: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C',
             onClick: this.edit
           })
+        ),
+        this.props.isSelected && _react2.default.createElement(
+          'td',
+          { className: 'ItemCard ' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            this.props.name
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.props.name
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'span',
+            null,
+            "Стоимость: " + this.props.price
+          )
         )
       );
     }
@@ -31843,7 +31846,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(29);
+__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./ItemCard.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31865,25 +31868,24 @@ var ItemCard = function (_React$Component) {
   _createClass(ItemCard, [{
     key: 'render',
     value: function render() {
-
       return _react2.default.createElement(
         'div',
-        null,
+        { className: 'ItemCard ' },
         _react2.default.createElement(
           'h2',
           null,
-          this.props.name
+          this.props.key
         ),
         _react2.default.createElement(
           'span',
           null,
-          this.props.name
+          '2'
         ),
         _react2.default.createElement('br', null),
         _react2.default.createElement(
           'span',
           null,
-          "Стоимость:" + this.props.price
+          "Стоимость: "
         )
       );
     }
@@ -31893,23 +31895,13 @@ var ItemCard = function (_React$Component) {
 }(_react2.default.Component);
 
 ItemCard.propTypes = {
-  startItems: _propTypes2.default.arrayOf(_propTypes2.default.shape({
-    code: _propTypes2.default.number.isRequired,
-    count: _propTypes2.default.number.isRequired,
-    price: _propTypes2.default.string.isRequired,
-    name: _propTypes2.default.string.isRequired
-  }))
+  key: _propTypes2.default.number.isRequired
+
 };
 exports.default = ItemCard;
 
 /***/ }),
 /* 29 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = [{"name":"карандаш","code":1,"price":"1 BYN","count":107,"url":"pencil.jpg"},{"name":"шариковая ручка","code":2,"price":"2 BYN","count":300,"url":"pen.jpg"},{"name":"ластик","code":3,"price":"1.10 BYN","count":350,"url":"eraser.jpg"},{"name":"блокнот","code":4,"price":"3.70 BYN","count":50,"url":"notebook.jpg"}]

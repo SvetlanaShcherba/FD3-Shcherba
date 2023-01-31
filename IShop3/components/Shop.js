@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import './Shop.css';
 
 import Item from './Item';
+import ItemCard from './ItemCard';
+
 
 class Shop extends React.Component {
 
@@ -21,16 +23,27 @@ class Shop extends React.Component {
   state = {
     items: this.props.startItems,
     selectedItemCode: '',
+    selectedItem: '',
+    itemCardMode: 2, //1-карточка в режиме отображения информации, 2 - в режиме редактирования
   };
 
   selectItem = (code) => {
     this.setState({ selectedItemCode: code });
+    let curSelectedItem = this.state.items.filter(v => v.code === code);
+    this.setState({ selectedItem: curSelectedItem[0], itemCardMode: 1  });
+    
   };
   
   deleteItem = (code) => {
     const newItems = this.state.items.filter(v => v.code !== code);
     this.setState({ items: newItems });
   };
+
+  editItem = (code) => {
+    this.setState({ itemCardMode: 2 });
+  };
+
+  
 
   render () {
     
@@ -45,8 +58,12 @@ class Shop extends React.Component {
         isSelected={v.code === this.state.selectedItemCode}
         cbDeleteItem={this.deleteItem}
         cbSelectItem={this.selectItem}
+        cbEditItem={this.editItem}
       />
     ); 
+    
+    
+    let codeItemCard = this.state.selectedItem;
     
        
 
@@ -63,8 +80,19 @@ class Shop extends React.Component {
             value='Новый товар'
             onClick={this.newProduct}
         />
- 
-     </div>  
+
+        
+        {this.state.selectedItemCode!=='' &&
+          <ItemCard
+            name={codeItemCard.name}
+            price={codeItemCard.price}
+            code={codeItemCard.code}
+            cardMode={this.state.itemCardMode}
+            
+          />
+        }
+        
+      </div>  
     );
   }
 

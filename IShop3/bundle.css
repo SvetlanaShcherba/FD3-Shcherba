@@ -1,13 +1,10 @@
-.Shop {
-  text-align: center;
-}
 
 td {
   border: 2px solid rgb(8, 146, 8);
 }
 
 .Items {
-  margin: auto;
+  
   border-collapse: collapse;
 }
 
@@ -22,10 +19,11 @@ td {
 
 td {
     border: 2px solid rgb(8, 146, 8);
+    text-align: center;
 }
 
 .Items {
-    margin: auto;
+    
     border-collapse: collapse;
 }
 
@@ -47,8 +45,11 @@ td {
     background-color: lightgreen;
 }
 
-.itemCard {
+.ItemCard {
     position: absolute;
-    left: 500px;
+    top: 100px;
+    left: 750px;
+    text-align: left;
+    border: none;
 }
 /*# sourceMappingURL=bundle.css.map*/

@@ -1,7 +1,6 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
 
-
 import './Item.css';
 
 class Item extends React.Component {
@@ -29,8 +28,9 @@ class Item extends React.Component {
     this.props.cbSelectItem(this.props.code)
   };
 
-  edit = () => { 
-    
+  edit = (eo) => { 
+    eo.stopPropagation();
+    this.props.cbEditItem(this.props.code)
   };
 
 
@@ -63,16 +63,7 @@ class Item extends React.Component {
                 value='Редактировать'
                 onClick={this.edit}
               />
-        </td> 
-        
-        {this.props.isSelected &&
-          <td className='ItemCard '>
-            <h2>{this.props.name}</h2>
-            <span>{this.props.name}</span><br />
-            <span>{"Стоимость: " + this.props.price}</span>
-          </td>
-        }
-
+            </td> 
         </tr>
         
         
