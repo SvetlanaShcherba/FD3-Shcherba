@@ -11,6 +11,7 @@ class Item extends React.Component {
         code: PropTypes.number.isRequired,
         count: PropTypes.number.isRequired,
         price: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         isSelected: PropTypes.bool.isRequired,
         cbSelectItem: PropTypes.func.isRequired,
@@ -30,8 +31,11 @@ class Item extends React.Component {
 
   edit = (eo) => { 
     eo.stopPropagation();
-    this.props.cbEditItem(this.props.code)
+    this.props.cbEditItem(this.props.code);
+    console.log(this.props.code);
   };
+
+
 
 
   render () {
@@ -61,7 +65,8 @@ class Item extends React.Component {
                 className='Button'
                 type='button'
                 value='Редактировать'
-                onClick={this.edit}
+            onClick={this.edit}
+            
               />
             </td> 
         </tr>
@@ -76,5 +81,3 @@ class Item extends React.Component {
 }
 
 export default Item;
-
- 
