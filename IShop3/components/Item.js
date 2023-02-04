@@ -14,11 +14,17 @@ class Item extends React.Component {
         url: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         isSelected: PropTypes.bool.isRequired,
+        isDisabled: PropTypes.bool.isRequired,
         cbSelectItem: PropTypes.func.isRequired,
         cbDeleteItem: PropTypes.func.isRequired,
       })
     )  
   };
+
+  state = {
+    isPressed: this.props.isDisabled,
+  };
+
 
   delete = (eo) => {
     eo.stopPropagation();
@@ -32,13 +38,16 @@ class Item extends React.Component {
   edit = (eo) => { 
     eo.stopPropagation();
     this.props.cbEditItem(this.props.code);
-    console.log(this.props.code);
+    
   };
 
+  componentDidUpdate = (oldProps, oldState) => {
+    if ( this.props.isDisabled!==this.state.isPressed )
+      this.setState({ isPressed: this.props.isDisabled });
+    };
 
-
-
-  render () {
+  render() {
+   
     return (
       
         <tr className={this.props.isSelected === true? 'active':""}
@@ -57,6 +66,7 @@ class Item extends React.Component {
                 type='button'
                 value='Удалить'
                 onClick={this.delete}
+                disabled={this.state.isPressed}
               />
             </td>
             
@@ -65,10 +75,12 @@ class Item extends React.Component {
                 className='Button'
                 type='button'
                 value='Редактировать'
-            onClick={this.edit}
+                onClick={this.edit}
+                disabled={this.state.isPressed}
             
               />
-            </td> 
+        </td> 
+        
         </tr>
         
         
@@ -76,7 +88,8 @@ class Item extends React.Component {
       
     
       
-    )      
+    ) 
+    
   }
 }
 

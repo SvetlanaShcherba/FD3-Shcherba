@@ -41,15 +41,26 @@ td {
     margin: 0 10px;
 }
 
+.ButtonDisabled {
+    margin: 0 10px;
+    display: none;
+}
 .active {
     background-color: lightgreen;
 }
 
 .ItemCard {
-    position: absolute;
-    top: 100px;
-    left: 750px;
+    
     text-align: left;
-    border: none;
+    
+}.err {
+    color: red;
+    margin-left: 15px;
+}
+
+.ItemCard {
+
+    text-align: left;
+
 }
 /*# sourceMappingURL=bundle.css.map*/

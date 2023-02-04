@@ -22,8 +22,9 @@ class NewItemCard extends React.Component {
   };
 
  
+ 
   nameChanged = (eo) => {
-    this.setState({name: eo.target.value})
+    this.setState({name: eo.target.value}, this.validate)
   };
 
   priceChanged = (eo) => {
@@ -59,7 +60,7 @@ class NewItemCard extends React.Component {
       countErr='укажите количество товара';
     this.setState({ countErr });
     
-    this.setState({ formValid: !this.state.nameErr && !this.state.countErr && !this.state.priceErr && !this.state.urlErr });
+    this.setState({ formValid: !nameErr && !countErr && !priceErr && !urlErr });
     
     
   };
@@ -83,7 +84,7 @@ class NewItemCard extends React.Component {
 
   render() {
     
-      return (
+    return (
       
         <div className='ItemCard '>
           <h2>{"Добавить новый товар"}</h2>

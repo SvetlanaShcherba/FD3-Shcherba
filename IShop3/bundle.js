@@ -468,7 +468,7 @@ var _Shop2 = _interopRequireDefault(_Shop);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var itemsArr = __webpack_require__(29);
+var itemsArr = __webpack_require__(31);
 
 _reactDom2.default.render(_react2.default.createElement(_Shop2.default, {
   startItems: itemsArr
@@ -30563,6 +30563,10 @@ var _ItemCard = __webpack_require__(28);
 
 var _ItemCard2 = _interopRequireDefault(_ItemCard);
 
+var _NewItemCard = __webpack_require__(30);
+
+var _NewItemCard2 = _interopRequireDefault(_NewItemCard);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30587,14 +30591,53 @@ var Shop = function (_React$Component) {
 
     return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Shop.__proto__ || Object.getPrototypeOf(Shop)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
       items: _this.props.startItems,
-      selectedItemCode: ''
+      selectedItemCode: '',
+      editedItem: '',
+      pressedItemCode: '',
+      selectedItem: '',
+      isDisabled: false,
+      itemCardMode: 1, //1-карточка в режиме отображения информации, 2 - в режиме редактирования, 3 - добавить новый товар
+      codeNewItem: ''
     }, _this.selectItem = function (code) {
-      _this.setState({ selectedItemCode: code });
+      var curSelectedItem = _this.state.items.filter(function (v) {
+        return v.code === code;
+      });
+      _this.setState({ selectedItem: curSelectedItem[0], itemCardMode: 1, selectedItemCode: code });
+      console.log(_this.state.selectedItemCode + 'выделен');
     }, _this.deleteItem = function (code) {
       var newItems = _this.state.items.filter(function (v) {
         return v.code !== code;
       });
       _this.setState({ items: newItems });
+    }, _this.editItem = function (code) {
+      var editedItem = _this.state.items.filter(function (v) {
+        return v.code === code;
+      });
+      _this.setState({ editedItem: editedItem[0], itemCardMode: 2, pressedItemCode: code, isDisabled: true });
+    }, _this.addNewItem = function () {
+      _this.setState({ itemCardMode: 3 });
+      var codeNewItem = _this.props.startItems.length + 1;
+      _this.setState({ codeNewItem: codeNewItem });
+    }, _this.saveСhanges = function (name, price, url, count) {
+      var newItems = _this.state.items.slice();
+      newItems.forEach(function (item) {
+        if (item.code === _this.state.selectedItemCode) {
+          item.name = name;
+          item.price = price;
+          item.url = url;
+          item.count = count;
+        }
+      });
+
+      _this.setState({ items: newItems });
+    }, _this.saveNewItem = function (name, price, url, count) {
+      var newItemsArr = _this.state.items.slice();
+      var newItem = { name: name, price: price, url: url, count: count, code: _this.state.codeNewItem };
+      newItemsArr[newItemsArr.length] = newItem;
+      _this.setState({ items: newItemsArr });
+      console.log(_this.state.items);
+    }, _this.cansel = function () {
+      _this.setState({ itemCardMode: 1 });
     }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
@@ -30612,10 +30655,15 @@ var Shop = function (_React$Component) {
           url: v.url,
           count: v.count,
           isSelected: v.code === _this2.state.selectedItemCode,
+          isDisabled: _this2.state.isDisabled,
           cbDeleteItem: _this2.deleteItem,
-          cbSelectItem: _this2.selectItem
+          cbSelectItem: _this2.selectItem,
+          cbEditItem: _this2.editItem
         });
       });
+
+      var codeItemCard = this.state.selectedItem;
+      var codeEditedItem = this.state.editedItem;
 
       return _react2.default.createElement(
         'div',
@@ -30638,10 +30686,35 @@ var Shop = function (_React$Component) {
           className: 'ButtonNewProduct',
           type: 'button',
           value: '\u041D\u043E\u0432\u044B\u0439 \u0442\u043E\u0432\u0430\u0440',
-          onClick: this.newProduct
+          onClick: this.addNewItem
         }),
-        _react2.default.createElement(_ItemCard2.default, {
-          key: this.state.selectedItemCode
+        this.state.selectedItemCode !== '' && this.state.itemCardMode == 1 && _react2.default.createElement(_ItemCard2.default, {
+          key: 1,
+          name: codeItemCard.name,
+          price: codeItemCard.price,
+          code: this.state.selectedItemCode,
+          url: codeItemCard.url,
+          count: codeItemCard.count,
+          cardMode: this.state.itemCardMode,
+          cbSave: this.saveСhanges,
+          cbCancel: this.cansel
+        }),
+        this.state.itemCardMode == 2 && _react2.default.createElement(_ItemCard2.default, {
+          key: 2,
+          name: codeEditedItem.name,
+          price: codeEditedItem.price,
+          code: this.state.pressedItemCode,
+          url: codeEditedItem.url,
+          count: codeEditedItem.count,
+          cardMode: this.state.itemCardMode,
+          cbSave: this.saveСhanges,
+          cbCancel: this.cansel
+        }),
+        this.state.itemCardMode == 3 && _react2.default.createElement(_NewItemCard2.default, {
+          code: this.state.codeNewItem,
+          cardMode: this.state.itemCardMode,
+          cbSaveNewItem: this.saveNewItem,
+          cbCancel: this.cansel
         })
       );
     }
@@ -30655,7 +30728,8 @@ Shop.propTypes = {
     code: _propTypes2.default.number.isRequired,
     count: _propTypes2.default.number.isRequired,
     price: _propTypes2.default.string.isRequired,
-    name: _propTypes2.default.string.isRequired
+    name: _propTypes2.default.string.isRequired,
+    url: _propTypes2.default.string.isRequired
   }))
 };
 exports.default = Shop;
@@ -31723,17 +31797,25 @@ var Item = function (_React$Component) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(args))), _this), _this.delete = function (eo) {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Item.__proto__ || Object.getPrototypeOf(Item)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      isPressed: _this.props.isDisabled
+    }, _this.delete = function (eo) {
       eo.stopPropagation();
       _this.props.cbDeleteItem(_this.props.code);
     }, _this.select = function () {
       _this.props.cbSelectItem(_this.props.code);
-    }, _this.edit = function () {}, _temp), _possibleConstructorReturn(_this, _ret);
+    }, _this.edit = function (eo) {
+      eo.stopPropagation();
+      _this.props.cbEditItem(_this.props.code);
+      _this.setState({ isPressed: true });
+      console.log(_this.props.code);
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(Item, [{
     key: 'render',
     value: function render() {
+
       return _react2.default.createElement(
         'tr',
         { className: this.props.isSelected === true ? 'active' : "",
@@ -31766,7 +31848,8 @@ var Item = function (_React$Component) {
             className: 'Button',
             type: 'button',
             value: '\u0423\u0434\u0430\u043B\u0438\u0442\u044C',
-            onClick: this.delete
+            onClick: this.delete,
+            disabled: this.state.isPressed
           })
         ),
         _react2.default.createElement(
@@ -31776,28 +31859,10 @@ var Item = function (_React$Component) {
             className: 'Button',
             type: 'button',
             value: '\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C',
-            onClick: this.edit
+            onClick: this.edit,
+            disabled: this.state.isPressed
+
           })
-        ),
-        this.props.isSelected && _react2.default.createElement(
-          'td',
-          { className: 'ItemCard ' },
-          _react2.default.createElement(
-            'h2',
-            null,
-            this.props.name
-          ),
-          _react2.default.createElement(
-            'span',
-            null,
-            this.props.name
-          ),
-          _react2.default.createElement('br', null),
-          _react2.default.createElement(
-            'span',
-            null,
-            "Стоимость: " + this.props.price
-          )
         )
       );
     }
@@ -31811,8 +31876,10 @@ Item.propTypes = {
     code: _propTypes2.default.number.isRequired,
     count: _propTypes2.default.number.isRequired,
     price: _propTypes2.default.string.isRequired,
+    url: _propTypes2.default.string.isRequired,
     name: _propTypes2.default.string.isRequired,
     isSelected: _propTypes2.default.bool.isRequired,
+    isDisabled: _propTypes2.default.bool.isRequired,
     cbSelectItem: _propTypes2.default.func.isRequired,
     cbDeleteItem: _propTypes2.default.func.isRequired
   }))
@@ -31846,7 +31913,7 @@ var _propTypes = __webpack_require__(3);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-__webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./ItemCard.css\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+__webpack_require__(29);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31860,34 +31927,251 @@ var ItemCard = function (_React$Component) {
   _inherits(ItemCard, _React$Component);
 
   function ItemCard() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
     _classCallCheck(this, ItemCard);
 
-    return _possibleConstructorReturn(this, (ItemCard.__proto__ || Object.getPrototypeOf(ItemCard)).apply(this, arguments));
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ItemCard.__proto__ || Object.getPrototypeOf(ItemCard)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      code: _this.props.code,
+      name: _this.props.name,
+      price: _this.props.price,
+      url: _this.props.url,
+      count: _this.props.count,
+      nameErr: '',
+      priceErr: '',
+      countErr: '',
+      urlErr: '',
+      formValid: true
+    }, _this.nameChanged = function (eo) {
+      _this.setState({ name: eo.target.value });
+    }, _this.priceChanged = function (eo) {
+      _this.setState({ price: eo.target.value }, _this.validate);
+    }, _this.urlChanged = function (eo) {
+      _this.setState({ url: eo.target.value }, _this.validate);
+    }, _this.countChanged = function (eo) {
+      _this.setState({ count: eo.target.value }, _this.validate);
+    }, _this.validate = function () {
+      var nameErr = '';
+      if (!_this.state.name) nameErr = 'введите навание';
+      _this.setState({ nameErr: nameErr });
+
+      var priceErr = '';
+      if (!_this.state.price) priceErr = 'укажите стоимость товара';
+      _this.setState({ priceErr: priceErr });
+
+      var urlErr = '';
+      if (!_this.state.url) urlErr = 'введите url';
+      _this.setState({ urlErr: urlErr });
+
+      var countErr = '';
+      if (!_this.state.count) countErr = 'укажите количество товара';
+      _this.setState({ countErr: countErr });
+
+      _this.setState({ formValid: !_this.state.nameErr && !_this.state.countErr && !_this.state.priceErr && !_this.state.urlErr });
+    }, _this.save = function () {
+      _this.validate();
+      if (_this.state.formValid) {
+        _this.props.cbSave(_this.state.name, _this.state.price, _this.state.url, _this.state.count);
+      }
+    }, _this.cancelEdit = function () {
+      _this.props.cbCancel();
+      _this.setState({
+        name: _this.props.name,
+        price: _this.props.price,
+        url: _this.props.url,
+        count: _this.props.count
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
   }
 
   _createClass(ItemCard, [{
     key: 'render',
     value: function render() {
-      return _react2.default.createElement(
-        'div',
-        { className: 'ItemCard ' },
-        _react2.default.createElement(
-          'h2',
-          null,
-          this.props.key
-        ),
-        _react2.default.createElement(
-          'span',
-          null,
-          '2'
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-          'span',
-          null,
-          "Стоимость: "
-        )
-      );
+
+      if (this.props.cardMode === 1) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'ItemCard ' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            this.props.name
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            this.props.name
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'span',
+            null,
+            "Стоимость: " + this.props.price
+          )
+        );
+      } else if (this.props.cardMode === 2) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'ItemCard ' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            "Редактировать"
+          ),
+          _react2.default.createElement(
+            'span',
+            null,
+            'ID: ' + this.state.code
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.name, style: { marginLeft: "10px" }, onChange: this.nameChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.nameErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u0421\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.price, style: { marginLeft: "36px" }, onChange: this.priceChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.priceErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'URL:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.url, style: { marginLeft: "78px" }, onChange: this.urlChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.urlErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.count, style: { marginLeft: "30px" }, onChange: this.countChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.countErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('input', {
+            type: 'button',
+            value: '\u0421o\u0445\u0440\u0430\u043D\u0438\u0442\u044C',
+            onClick: this.save,
+            disabled: !this.state.formValid
+          }),
+          _react2.default.createElement('input', {
+            type: 'button',
+            value: '\u041E\u0442\u043C\u0435\u043D\u0430',
+            onClick: this.cancelEdit
+          })
+        );
+      } else if (this.props.cardMode === 3) {
+        return _react2.default.createElement(
+          'div',
+          { className: 'ItemCard ' },
+          _react2.default.createElement(
+            'h2',
+            null,
+            "Добавить новый товар"
+          ),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.name, style: { marginLeft: "10px" }, onChange: this.nameChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.nameErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u0421\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.price, style: { marginLeft: "36px" }, onChange: this.priceChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.priceErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            'URL:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.url, style: { marginLeft: "78px" }, onChange: this.urlChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.urlErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.count, style: { marginLeft: "30px" }, onChange: this.countChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.countErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement(
+            'label',
+            null,
+            '\u041A\u043E\u0434 \u0442\u043E\u0432\u0430\u0440\u0430:',
+            _react2.default.createElement('input', { type: 'text', value: this.state.count, style: { marginLeft: "30px" }, onChange: this.countChanged }),
+            _react2.default.createElement(
+              'span',
+              { className: 'err' },
+              this.state.countErr
+            )
+          ),
+          _react2.default.createElement('br', null),
+          _react2.default.createElement('input', {
+            type: 'button',
+            value: '\u0414\u043E\u0431\u0430\u0432\u0438\u0442\u044C',
+            onClick: this.save,
+            disabled: !this.state.formValid
+          }),
+          _react2.default.createElement('input', {
+            type: 'button',
+            value: '\u041E\u0442\u043C\u0435\u043D\u0430'
+
+          })
+        );
+      }
     }
   }]);
 
@@ -31895,13 +32179,210 @@ var ItemCard = function (_React$Component) {
 }(_react2.default.Component);
 
 ItemCard.propTypes = {
-  key: _propTypes2.default.number.isRequired
-
+  price: _propTypes2.default.string,
+  name: _propTypes2.default.string,
+  code: _propTypes2.default.number,
+  url: _propTypes2.default.string,
+  count: _propTypes2.default.number,
+  cbSave: _propTypes2.default.func,
+  cbCancel: _propTypes2.default.func
 };
 exports.default = ItemCard;
 
 /***/ }),
 /* 29 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(3);
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var NewItemCard = function (_React$Component) {
+  _inherits(NewItemCard, _React$Component);
+
+  function NewItemCard() {
+    var _ref;
+
+    var _temp, _this, _ret;
+
+    _classCallCheck(this, NewItemCard);
+
+    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = NewItemCard.__proto__ || Object.getPrototypeOf(NewItemCard)).call.apply(_ref, [this].concat(args))), _this), _this.state = {
+      name: '',
+      price: '',
+      url: '',
+      count: '',
+      nameErr: '',
+      priceErr: '',
+      countErr: '',
+      urlErr: '',
+      formValid: true
+    }, _this.nameChanged = function (eo) {
+      _this.setState({ name: eo.target.value });
+    }, _this.priceChanged = function (eo) {
+      _this.setState({ price: eo.target.value }, _this.validate);
+    }, _this.urlChanged = function (eo) {
+      _this.setState({ url: eo.target.value }, _this.validate);
+    }, _this.countChanged = function (eo) {
+      _this.setState({ count: eo.target.value }, _this.validate);
+    }, _this.validate = function () {
+      var nameErr = '';
+      if (!_this.state.name) nameErr = 'введите навание';
+      _this.setState({ nameErr: nameErr });
+
+      var priceErr = '';
+      if (!_this.state.price) priceErr = 'укажите стоимость товара';
+      _this.setState({ priceErr: priceErr });
+
+      var urlErr = '';
+      if (!_this.state.url) urlErr = 'введите url';
+      _this.setState({ urlErr: urlErr });
+
+      var countErr = '';
+      if (!_this.state.count) countErr = 'укажите количество товара';
+      _this.setState({ countErr: countErr });
+
+      _this.setState({ formValid: !_this.state.nameErr && !_this.state.countErr && !_this.state.priceErr && !_this.state.urlErr });
+    }, _this.saveNewItem = function () {
+      _this.validate();
+      if (_this.state.formValid) {
+        _this.props.cbSaveNewItem(_this.state.name, _this.state.price, _this.state.url, _this.state.count, _this.state.count.code);
+      }
+    }, _this.cancelEdit = function () {
+      _this.props.cbCancel();
+      _this.setState({
+        name: _this.props.name,
+        price: _this.props.price,
+        url: _this.props.url,
+        count: _this.props.count
+      });
+    }, _temp), _possibleConstructorReturn(_this, _ret);
+  }
+
+  _createClass(NewItemCard, [{
+    key: 'render',
+    value: function render() {
+
+      return _react2.default.createElement(
+        'div',
+        { className: 'ItemCard ' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          "Добавить новый товар"
+        ),
+        _react2.default.createElement(
+          'span',
+          null,
+          'ID: ' + this.props.code
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'label',
+          null,
+          '\u041D\u0430\u0438\u043C\u0435\u043D\u043E\u0432\u0430\u043D\u0438\u0435:',
+          _react2.default.createElement('input', { type: 'text', value: this.state.name, style: { marginLeft: "10px" }, onChange: this.nameChanged }),
+          _react2.default.createElement(
+            'span',
+            { className: 'err' },
+            this.state.nameErr
+          )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'label',
+          null,
+          '\u0421\u0442\u043E\u0438\u043C\u043E\u0441\u0442\u044C:',
+          _react2.default.createElement('input', { type: 'text', value: this.state.price, style: { marginLeft: "36px" }, onChange: this.priceChanged }),
+          _react2.default.createElement(
+            'span',
+            { className: 'err' },
+            this.state.priceErr
+          )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'label',
+          null,
+          'URL:',
+          _react2.default.createElement('input', { type: 'text', value: this.state.url, style: { marginLeft: "78px" }, onChange: this.urlChanged }),
+          _react2.default.createElement(
+            'span',
+            { className: 'err' },
+            this.state.urlErr
+          )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'label',
+          null,
+          '\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E:',
+          _react2.default.createElement('input', { type: 'text', value: this.state.count, style: { marginLeft: "30px" }, onChange: this.countChanged }),
+          _react2.default.createElement(
+            'span',
+            { className: 'err' },
+            this.state.countErr
+          )
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('input', {
+          type: 'button',
+          value: '\u0421o\u0445\u0440\u0430\u043D\u0438\u0442\u044C',
+          onClick: this.saveNewItem,
+          disabled: !this.state.formValid
+        }),
+        _react2.default.createElement('input', {
+          type: 'button',
+          value: '\u041E\u0442\u043C\u0435\u043D\u0430',
+          onClick: this.cancelEdit
+        })
+      );
+    }
+  }]);
+
+  return NewItemCard;
+}(_react2.default.Component);
+
+NewItemCard.propTypes = {
+  code: _propTypes2.default.number,
+  cbSaveNewItem: _propTypes2.default.func,
+  cbCancel: _propTypes2.default.func
+};
+exports.default = NewItemCard;
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = [{"name":"карандаш","code":1,"price":"1 BYN","count":107,"url":"pencil.jpg"},{"name":"шариковая ручка","code":2,"price":"2 BYN","count":300,"url":"pen.jpg"},{"name":"ластик","code":3,"price":"1.10 BYN","count":350,"url":"eraser.jpg"},{"name":"блокнот","code":4,"price":"3.70 BYN","count":50,"url":"notebook.jpg"}]

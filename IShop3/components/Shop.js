@@ -26,15 +26,20 @@ class Shop extends React.Component {
   state = {
     items: this.props.startItems,
     selectedItemCode: '',
+    editedItem: '',
+    pressedItemCode: '',
     selectedItem: '',
+    isDisabled: false,
     itemCardMode: 1, //1-карточка в режиме отображения информации, 2 - в режиме редактирования, 3 - добавить новый товар
     codeNewItem: '',
   };
 
+  
+
   selectItem = (code) => {
-    this.setState({ selectedItemCode: code });
     let curSelectedItem = this.state.items.filter(v => v.code === code);
-    this.setState({ selectedItem: curSelectedItem[0], itemCardMode: 1 });
+    this.setState({ selectedItem: curSelectedItem[0], itemCardMode: 1, selectedItemCode: code , isDisabled: false,});
+    console.log(this.state.selectedItemCode+ 'выделен');
   };
   
   deleteItem = (code) => {
@@ -43,13 +48,14 @@ class Shop extends React.Component {
   };
 
   editItem = (code) => {
-    this.setState({ itemCardMode: 2, selectedItemCode: code });
+    let editedItem = this.state.items.filter(v => v.code === code);
+    this.setState({ editedItem: editedItem[0], itemCardMode: 2, pressedItemCode: code, selectedItemCode: code, isDisabled: true, });
   };
 
 
   addNewItem = () => {
     this.setState({ itemCardMode: 3 });
-    let codeNewItem = this.props.startItems.length + 1;
+    let codeNewItem = this.state.items.length + 1;
     this.setState({ codeNewItem: codeNewItem });
     
   };
@@ -57,13 +63,13 @@ class Shop extends React.Component {
   saveСhanges = (name, price, url, count,) => {
     let newItems = this.state.items.slice();
     newItems.forEach(item => {
-      if (item.code === this.state.selectedItemCode) {
+      if (item.code === this.state.pressedItemCode) {
         item.name = name;
         item.price = price;
         item.url = url;
         item.count = count;
       }
-     
+    this.setState({ itemCardMode: 1, isDisabled: false, }); 
     });
     
     this.setState({ items: newItems });
@@ -73,18 +79,17 @@ class Shop extends React.Component {
     let newItemsArr = this.state.items.slice();
     let newItem = { name: name, price: price, url: url, count: count, code: this.state.codeNewItem}
     newItemsArr[newItemsArr.length] = newItem;
-    this.setState({ items: newItemsArr });
-    console.log(this.state.items) 
+    this.setState({ items: newItemsArr, itemCardMode: 1, isDisabled: false, });
+    
   };
 
 
   cansel = () => {
-    this.setState({ itemCardMode: 1 });
+    this.setState({ itemCardMode: 1, isDisabled: false, selectedItemCode: '', });
   };
-
-
-
   
+  
+    
   render () {
     
     const code = this.state.items.map(v =>
@@ -96,15 +101,18 @@ class Shop extends React.Component {
         url={v.url}
         count={v.count}
         isSelected={v.code === this.state.selectedItemCode}
+        isDisabled={this.state.isDisabled}
         cbDeleteItem={this.deleteItem}
         cbSelectItem={this.selectItem}
         cbEditItem={this.editItem}
+        
       />
+      
     ); 
     
     
     let codeItemCard = this.state.selectedItem;
-    
+    let codeEditedItem = this.state.editedItem;
        
 
     return (
@@ -118,7 +126,8 @@ class Shop extends React.Component {
             className='ButtonNewProduct'
             type='button'
             value='Новый товар'
-            onClick={this.addNewItem}
+          onClick={this.addNewItem}
+          disabled={this.state.isDisabled}
         />
 
         
@@ -138,14 +147,14 @@ class Shop extends React.Component {
         }
 
         {
-          (this.state.selectedItemCode !== '') && (this.state.itemCardMode == 2) &&
+          (this.state.itemCardMode == 2) &&
           <ItemCard
             key ={2}
-            name={codeItemCard.name}
-            price={codeItemCard.price}
-            code={this.state.selectedItemCode}
-            url={codeItemCard.url}
-            count={codeItemCard.count}
+            name={codeEditedItem.name}
+            price={codeEditedItem.price}
+            code={this.state.pressedItemCode}
+            url={codeEditedItem.url}
+            count={codeEditedItem.count}
             cardMode={this.state.itemCardMode}
             cbSave={this.saveСhanges}
             cbCancel={this.cansel}
@@ -165,7 +174,9 @@ class Shop extends React.Component {
 
       </div>  
     );
+    
   }
+
 
 }
 

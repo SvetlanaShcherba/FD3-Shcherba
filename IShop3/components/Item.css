@@ -23,6 +23,10 @@ td {
     margin: 0 10px;
 }
 
+.ButtonDisabled {
+    margin: 0 10px;
+    display: none;
+}
 .active {
     background-color: lightgreen;
 }

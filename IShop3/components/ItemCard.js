@@ -30,7 +30,7 @@ class ItemCard extends React.Component {
 
  
   nameChanged = (eo) => {
-    this.setState({name: eo.target.value})
+    this.setState({name: eo.target.value}, this.validate)
   };
 
   priceChanged = (eo) => {
@@ -66,7 +66,7 @@ class ItemCard extends React.Component {
       countErr='укажите количество товара';
     this.setState({ countErr });
     
-    this.setState({ formValid: !this.state.nameErr && !this.state.countErr && !this.state.priceErr && !this.state.urlErr });
+    this.setState({ formValid: !nameErr && !countErr && !priceErr && !urlErr }, );
     
     
   };
@@ -87,6 +87,8 @@ class ItemCard extends React.Component {
       count: this.props.count,
     });
   };
+
+ 
 
   render() {
     
@@ -134,47 +136,8 @@ class ItemCard extends React.Component {
       )
     }
 
-    else if (this.props.cardMode === 3) {
-      return (
-      
-        <div className='ItemCard '>
-          <h2>{"Добавить новый товар"}</h2>
-
-          <label>Наименование:
-            <input type='text' value={this.state.name} style={{ marginLeft: "10px" }} onChange={this.nameChanged} ></input><span className='err'>{this.state.nameErr }</span>
-          </label><br />
-          
-          <label>Стоимость:
-            <input type='text' value={this.state.price} style={{marginLeft: "36px"}} onChange={this.priceChanged}></input><span className='err'>{this.state.priceErr }</span>
-          </label><br />
-
-          <label>URL:
-            <input type='text' value={this.state.url} style={{marginLeft: "78px"}} onChange={this.urlChanged}></input><span className='err'>{this.state.urlErr }</span>
-          </label><br />
-
-          <label>Количество:
-            <input type='text' value={this.state.count} style={{marginLeft: "30px"}} onChange={this.countChanged}></input><span className='err'>{this.state.countErr }</span>
-          </label><br />
-
-          <label>Код товара:
-            <input type='text' value={this.state.count} style={{marginLeft: "30px"}} onChange={this.countChanged}></input><span className='err'>{this.state.countErr }</span>
-          </label><br />
-
-          <input
-            type='button'
-            value='Добавить'
-            onClick={this.save}
-            disabled={!this.state.formValid}
-          />
-          <input
-              type='button'
-              value='Отмена'
-              
-            />
-          
-        </div>
-      )
-    }
+    
+    
   }
 }
 
