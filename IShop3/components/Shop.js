@@ -55,7 +55,7 @@ class Shop extends React.Component {
 
   addNewItem = () => {
     this.setState({ itemCardMode: 3 });
-    let codeNewItem = this.state.items.length + 1;
+    let codeNewItem = this.state.items[this.state.items.length-1].code + 1;
     this.setState({ codeNewItem: codeNewItem });
     
   };
