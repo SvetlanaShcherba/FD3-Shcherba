@@ -1,17 +1,19 @@
-﻿.MobileCompany
+﻿.MobileCompany input {
+  border-radius: 1px;
+}
+.MobileCompany table
 {
-  border: double gray 3px;
-  width: 180px;
-  padding: 3px 7px;
-  background-color: lightyellow;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+.MobileCompany td {
+  border: 2px solid rgb(8, 146, 8);
+  padding: 5px;
+  text-align: center;
 }
 
-.MobileCompanyName
+.MobileCompany tr:first-child
 {
   font-weight: bold;
 }
 
-.MobileCompanyClients
-{
-  padding-top: 5px;
-}

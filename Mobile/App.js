@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import MobileCompany from './components/MobileCompany';
 
 let clientsArr=[ 
-  {id:101, fio:"Иванов И.И.", balance:200}, 
-  {id:105, fio:"Сидоров С.С.", balance:250}, 
-  {id:110, fio:"Петров П.П.", balance:180},
-  {id:120, fio:"Григорьев Г.Г.", balance:220},
+  {code:101, surname:"Иванов", nameCl:"Игнат", otch: "Иванович", balance:200}, 
+  {code:105, surname:"Сидоров", nameCl:"Сергей", otch: "Семенович", balance:250}, 
+  {code:110, surname:"Петров", nameCl:"Петр", otch: "Павлович", balance:180},
+  {code:120, surname:"Григорьев", nameCl:"Геннадий", otch: "Григорьевич", balance:-220},
 ];
 
 ReactDOM.render(

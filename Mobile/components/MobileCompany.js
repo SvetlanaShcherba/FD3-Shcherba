@@ -2,16 +2,22 @@
 import PropTypes from 'prop-types';
 
 import MobileClient from './MobileClient';
+import {clientEvents} from './events';
 
 import './MobileCompany.css';
 
+
+
 class MobileCompany extends React.PureComponent {
+  
 
   static propTypes = {
     clients:PropTypes.arrayOf(
       PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        fio: PropTypes.string.isRequired,
+        code: PropTypes.number.isRequired,
+        surname: PropTypes.string.isRequired,
+        nameCl: PropTypes.string.isRequired,
+        otch: PropTypes.string.isRequired,
         balance: PropTypes.number.isRequired,
       })
     ),
@@ -19,58 +25,108 @@ class MobileCompany extends React.PureComponent {
 
   state = {
     clients: this.props.clients,
+    showMode: 1,
+  
   };
 
-  setName1 = () => {
-    this.setState({name:'МТС'});
+  componentDidMount = () => {
+    clientEvents.addListener('EDeleteClicked',this.deleteClient);
+    clientEvents.addListener('EEditClicked', this.editClient);
+    
+     if ( this.props.clients!==this.state.clients )
+      this.setState({ clients: this.state.clients});
   };
 
-  setName2 = () => {
-    this.setState({name:'A1'});
+
+  componentWillUnmount = () => {
+    clientEvents.removeListener('EDeleteClicked',this.deleteClient);
+    clientEvents.removeListener('EEditClicked', this.editClient);
   };
   
-  setBalance = (clientId,newBalance) => {
-    let newClients=this.state.clients;
-    newClients.forEach( c => {
-      if ( c.id==clientId )
-        c.balance=newBalance;
-    } );
-    this.setState({clients:newClients});
+  deleteClient = (code) => {
+    let clients = this.state.clients.slice();
+    const clientIndex = clients.findIndex(cl => cl.code === code);
+    if (clientIndex !== -1) {
+      let newClients = this.state.clients.filter(cl => cl.code !== code);
+      this.setState({ clients: newClients });
+    }    
   };
 
-  setBalance1 = () => {
-    this.setBalance(105,230);
+  editClient = (code, surname, nameCl, otch, balance) => {
+    let clients = this.state.clients.slice();
+    const clientIndex = clients.findIndex(cl => cl.code === code);
+    if (clientIndex !== -1) {
+      let newClient = { ...clients[clientIndex], surname, nameCl, otch, balance};
+      clients[clientIndex] = newClient;
+      this.setState({ clients: clients });
+    } 
   };
 
-  setBalance2 = () => {
-    this.setBalance(105,250);
+  showAllClients = () => {
+    this.setState({ showMode: 1 });  
   };
-  
+
+  showActiveClients = () => {
+    this.setState({ showMode: 2 });  
+  };
+
+  showBlockedСlients = () => {
+    this.setState({ showMode: 3 });  
+  };
+
+
+  addNewСlient = () => {
+    let clients = this.state.clients.slice();
+    let indexNewClient= clients[clients.length-1].code + 130;
+    let newClient = { code: indexNewClient, surname: "", nameCl: "", otch: "", balance: '' };
+    clients[clients.length] = newClient;
+    this.setState({ clients: clients });
+  };
+
+
   render() {
-
     console.log("MobileCompany render");
+    var clientsCode;
+    if (this.state.showMode === 1) {
+      clientsCode = this.state.clients.map(cl =>
+        <MobileClient key={cl.code} info={cl} />);
+    }
 
-    const clientsCode=this.state.clients.map( client =>
-      <MobileClient key={client.id} info={client}  />
-    );
-
+    if (this.state.showMode === 2) {
+      clientsCode = this.state.clients.filter(cl => cl.balance > 0).map(cl =>
+        <MobileClient key={cl.code} info={cl} />);
+    }
+    if (this.state.showMode === 3) {
+      clientsCode = this.state.clients.filter(cl => cl.balance < 0).map(cl =>
+        <MobileClient key={cl.code} info={cl} />);
+    }
+   
+    
     return (
       <div className='MobileCompany'>
         <input type='button' value='Все' onClick={this.showAllClients}/>
-        <input type="button" value="Активные" onClick={this.showActiveСlients} />
+        <input type="button" value="Активные" onClick={this.showActiveClients} />
         <input type="button" value="Заблокированные" onClick={this.showBlockedСlients} />
 
-        <div className='MobileCompanyClients'>
-          {clientsCode}
-        </div>
-        
-        <input type="button" value="Добавить клиента" onClick={this.this.addNewСlient} />
+        <table>
+          <tbody>
+            <tr className='MobileCompanyTableHeader' key={4}>
+              <td>Фамилия</td>
+              <td>Имя</td>
+              <td>Отчество</td>
+              <td>Баланс</td>
+              <td>Активность</td>
+              <td>Удалить</td>
+              <td>Редактировать</td>
+            </tr>  
+            {clientsCode}
+          </tbody>
+        </table>
+                
+        <input type="button" defaultValue="Добавить клиента" onClick={this.addNewСlient} />
       </div>
-    )
-    ;
-
+    );
   }
-
 }
 
 export default MobileCompany;

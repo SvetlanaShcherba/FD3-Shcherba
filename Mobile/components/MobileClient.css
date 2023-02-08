@@ -1,17 +1,6 @@
-﻿div.MobileClient
-{
-  padding: 2px 0;
+﻿.MobileClientActive {
+  background-color: green;
 }
-
-span.MobileClientBalance
-{
-  float: right;
-  width: 30px;
-  font-weight: bold;
-  text-align: right;
-}
-
-span.MobileClientFIO
-{
-  margin-right: 30px;
+.MobileClientBlocked {
+  background-color: red;
 }
