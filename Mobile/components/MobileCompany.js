@@ -32,9 +32,6 @@ class MobileCompany extends React.PureComponent {
   componentDidMount = () => {
     clientEvents.addListener('EDeleteClicked',this.deleteClient);
     clientEvents.addListener('EEditClicked', this.editClient);
-    
-     if ( this.props.clients!==this.state.clients )
-      this.setState({ clients: this.state.clients});
   };
 
 
@@ -78,7 +75,7 @@ class MobileCompany extends React.PureComponent {
   addNewСlient = () => {
     let clients = this.state.clients.slice();
     let indexNewClient= clients[clients.length-1].code + 130;
-    let newClient = { code: indexNewClient, surname: "", nameCl: "", otch: "", balance: '' };
+    let newClient = { code: indexNewClient, surname: "", nameCl: "", otch: "",  };
     clients[clients.length] = newClient;
     this.setState({ clients: clients });
   };

@@ -13,7 +13,7 @@ class MobileClient extends React.PureComponent {
       surname: PropTypes.string.isRequired,
       nameCl: PropTypes.string.isRequired,
       otch: PropTypes.string.isRequired,
-      balance: PropTypes.number.isRequired,
+      balance: PropTypes.number,
     }),
   };
 
@@ -44,7 +44,7 @@ class MobileClient extends React.PureComponent {
     let newSurname = this.newSurnameRef.current.value;
     let newName = this.newNameRef.current.value;    
     let newOtch = this.newOtchRef.current.value;
-    let newBalance = this.newBalanceRef.current.value;
+    let newBalance = Number.isNaN(parseFloat(this.newBalanceRef.current.value)) ? 0 : Number(this.newBalanceRef.current.value);
     let newClient = { ...this.state.info, balance: newBalance, surname: newSurname, nameCl: newName, otch: newOtch };
     this.setState({ info: newClient, mode: 1 });
      
@@ -64,13 +64,13 @@ class MobileClient extends React.PureComponent {
           <td>{this.state.info.nameCl}</td>
           <td>{this.state.info.otch}</td>
           <td>{this.state.info.balance}</td>
-          <td style={(this.state.info.balance > 0) ? { backgroundColor: 'green' } :
-            (this.state.info.balance === "") ? { backgroundColor: '' } :
-              { backgroundColor: 'red' }}>
+          <td style={(this.state.info.balance <= 0) ? { backgroundColor: 'red' } :
+            (!this.state.info.balance) ? { backgroundColor: '' } :
+              { backgroundColor: 'green' }}>
             
-            {(this.state.info.balance > 0) ? "Активен" :
-              (this.state.info.balance === "") ?'':
-              "Заблокирован"}</td>
+            {(this.state.info.balance <= 0) ? "Заблокирован" :
+              (!this.state.info.balance) ?'':
+              "Активен"}</td>
 
           <td>
             <input className='Button' type='button' value='Удалить' onClick={this.deleteClient}/>
