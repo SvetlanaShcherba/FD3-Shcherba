@@ -18,7 +18,7 @@ var filter=React.createClass({
         this.setState ({ isSorted: eo.target.checked }, this.processList);
     },
 
-        filterChanged (eo) {
+    filterChanged (eo) {
         this.setState ({ filterStr: eo.target.value }, this.processList);
     },
 
