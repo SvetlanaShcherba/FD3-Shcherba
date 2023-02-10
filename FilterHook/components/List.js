@@ -1,6 +1,7 @@
-import React, { useState, useEffect,} from 'react';
+import React, { useState, useEffect, } from 'react';
+import "./List.css";
 
-export default ({ filterStr, fullWordsList, isSorted}) => {
+export default ({ filterStr, fullWordsList, isSorted, isReset}) => {
   
   const [list, setList] = useState(fullWordsList.join('\n'));
 
@@ -8,27 +9,24 @@ export default ({ filterStr, fullWordsList, isSorted}) => {
     if (filterStr)
           newWordsList = newWordsList.filter(w => w.includes(filterStr));
     if (isSorted)
-    newWordsList.sort();
-    
-  
-  
+      newWordsList.sort();
   
   useEffect(
-        () => {
-           setList(newWordsList.join('\n'));
-        },
-        [filterStr]
+    () => {
+      setList(newWordsList.join('\n'));
+    },
+    [filterStr, isSorted],
   );
   
+  useEffect(
+    () => {
+      setList(fullWordsList.join('\n'));
+    },
+    [isReset===true],
+  );
   
-  
-    
-    
- 
   return (
-    <div className="List">
-      <textarea className='text' value={list} readOnly></textarea>
-    </div>
+    <textarea className="List" value={list} readOnly></textarea>
   );
  
 };

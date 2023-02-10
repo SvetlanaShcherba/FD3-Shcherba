@@ -1,0 +1,7 @@
+.Controls input:last-child {
+    margin-left: 10px;
+}
+
+.Controls input:first-child {
+    margin-right: 10px;
+}

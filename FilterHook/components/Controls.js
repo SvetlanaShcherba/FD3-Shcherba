@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+
+import "./Controls.css";
 
 
 export default ({cbChangeList }) => {
@@ -8,33 +10,24 @@ export default ({cbChangeList }) => {
     
   useEffect(
         () => {
-           cbChangeList(filterStr, isSorted);
+           cbChangeList(filterStr, isSorted, isReset);
         },
-        [filterStr]
+        [filterStr, isSorted, isReset]
   );
   
-  const memoizeedRenderResult = useMemo(
-      
-    () => {
-      function reset() {
-        setSort(false);
-        setFilter('');
-      }
   
-      function filter(eo) {
-        setFilter(eo.target.value);
-        cbChangeList(filterStr, isSorted);
-      }
+  function reset() {
+    setSort(false);
+    setFilter('');
+    setReset(!isReset);
+  }
 
-      return (
-        <div className="Controls">
-          <input type="checkbox" checked={isSorted} onChange={() => setSort(!isSorted)}></input>
-          <input type='text' value={filterStr} onChange={filter}></input>
-          <input type='button' value="Сброс" onClick={reset}></input>
-        </div>
-      )
-    },
-  [isSorted, filterStr]
-  );
-  return memoizeedRenderResult;
+  
+  return (
+    <div className="Controls">
+      <input type="checkbox" checked={isSorted} onChange={() => setSort(!isSorted)}></input>
+      <input type='text' value={filterStr} onChange={(eo) => setFilter(eo.target.value)}></input>
+      <input type='button' value="Сброс" onClick={reset}></input>
+    </div>
+  )
 };
