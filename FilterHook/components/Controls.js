@@ -4,10 +4,11 @@ import React, { useState, useEffect, useMemo } from 'react';
 export default ({cbChangeList }) => {
   const [isSorted, setSort] = useState(false);
   const [filterStr, setFilter] = useState('');
+  const [isReset, setReset] = useState(false);
     
   useEffect(
         () => {
-           cbChangeList(filterStr, isSorted );
+           cbChangeList(filterStr, isSorted);
         },
         [filterStr]
   );
@@ -22,7 +23,7 @@ export default ({cbChangeList }) => {
   
       function filter(eo) {
         setFilter(eo.target.value);
-        cbChangeList(filterStr, isSorted );
+        cbChangeList(filterStr, isSorted);
       }
 
       return (

@@ -11,12 +11,15 @@ let wordsArr = ['california', 'everything', 'aboveboard', 'washington', 'basketb
 export default props => {
   const [isSorted, setSort] = useState(false);
   const [filterStr, setFilter] = useState('');
+  
 
-  function changeList(filterStr, isSorted,) {
+  function changeList(filterStr, isSorted, isReset) {
+    
     if (filterStr)
         setFilter(filterStr); 
     if (isSorted)
-        setSort(true);
+      setSort(true);
+    
     }
  
   const memoizedChangeList= useCallback( changeList, [] );
@@ -24,7 +27,7 @@ export default props => {
   return (
     <div>
       <Controls cbChangeList={memoizedChangeList} />
-      <List fullWordsList={wordsArr} isSorted={ isSorted} filterStr={filterStr} cbChangeList={memoizedChangeList}/>
+      <List fullWordsList={wordsArr} isSorted={ isSorted} filterStr={filterStr}  cbChangeList={memoizedChangeList}/>
     </div>
   );
 };
