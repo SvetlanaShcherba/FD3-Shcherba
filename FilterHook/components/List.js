@@ -3,30 +3,26 @@ import "./List.css";
 
 export default ({ filterStr, fullWordsList, isSorted, isReset}) => {
   
-  const [list, setList] = useState(fullWordsList.join('\n'));
-
+  const [list, setList] = useState(fullWordsList);
+  
   let newWordsList = fullWordsList.slice();
-    if (filterStr)
-          newWordsList = newWordsList.filter(w => w.includes(filterStr));
-    if (isSorted)
-      newWordsList.sort();
+  if (filterStr)
+    newWordsList=newWordsList.filter(w => w.includes(filterStr));
+  if (isReset)
+    newWordsList=fullWordsList.slice();
+  if (isSorted)
+    newWordsList.sort();
   
   useEffect(
     () => {
-      setList(newWordsList.join('\n'));
+      setList(newWordsList);
     },
-    [filterStr, isSorted],
+    [filterStr, isSorted,  isReset],
   );
-  
-  useEffect(
-    () => {
-      setList(fullWordsList.join('\n'));
-    },
-    [isReset===true],
-  );
-  
-  return (
-    <textarea className="List" value={list} readOnly></textarea>
+
+     
+ return (
+    <textarea className="List" value={list.join('\n')} readOnly></textarea>
   );
  
 };

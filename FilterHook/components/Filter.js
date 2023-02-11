@@ -1,4 +1,4 @@
-﻿import React, {useState, useCallback} from 'react';
+﻿import React, {useState} from 'react';
 
 import Controls from "./Controls";
 import List from "./List";
@@ -13,15 +13,15 @@ export default props => {
   const [filterStr, setFilter] = useState('');
   const [isReset, setReset] = useState(false);
   
-
+  
   function changeList(filterStr, isSorted, isReset) {
     if (filterStr)
         setFilter(filterStr); 
-    if (isSorted)
-      setSort(true);
-    (isReset) ? setReset(true) : setReset(false);
-    }
- 
+    (isSorted) ? setSort(true) : setSort(false);
+    (isReset) ? setReset(true) : setReset(false);   
+  }
+
+    
   return (
     <div>
       <Controls cbChangeList={changeList} />
