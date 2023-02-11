@@ -1,4 +1,4 @@
-﻿import React, {useState} from 'react';
+﻿import React, {useState, useEffect} from 'react';
 
 import Controls from "./Controls";
 import List from "./List";
@@ -9,23 +9,22 @@ import "./Filter.css";
 let wordsArr = ['california', 'everything', 'aboveboard', 'washington', 'basketball', 'weathering', 'characters', 'literature', 'contraband', 'appreciate'];
 
 export default props => {
-  const [isSorted, setSort] = useState(false);
-  const [filterStr, setFilter] = useState('');
-  const [isReset, setReset] = useState(false);
-  
-  
-  function changeList(filterStr, isSorted, isReset) {
+  const [list, setList] = useState(wordsArr.join('\n'));
+    
+  function changeList(filterStr, isSorted) {
+    let newWordsList = wordsArr.slice();
     if (filterStr)
-        setFilter(filterStr); 
-    (isSorted) ? setSort(true) : setSort(false);
-    (isReset) ? setReset(true) : setReset(false);   
+      newWordsList = newWordsList.filter(w => w.includes(filterStr));
+    if (isSorted)
+      newWordsList.sort();
+    setList(newWordsList.join('\n'));
   }
 
-    
+      
   return (
     <div>
-      <Controls cbChangeList={changeList} />
-      <List fullWordsList={wordsArr} isSorted={ isSorted} isReset={isReset} filterStr={filterStr}  cbChangeList={changeList}/>
+      <Controls cbChangeList={changeList}/>
+      <List  wordsList={list}/>
     </div>
   );
 };

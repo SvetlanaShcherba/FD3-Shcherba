@@ -6,37 +6,27 @@ import "./Controls.css";
 export default ({ cbChangeList }) => {
   const [isSorted, setSort] = useState(false);
   const [filterStr, setFilter] = useState('');
-  const [isReset, setReset] = useState(false);
-
-  const filterRef = useRef(null);   
-  
+   
   useEffect(
     () => {
-        cbChangeList(filterStr, isSorted, isReset);
+        cbChangeList(filterStr, isSorted);
     },
-    [filterStr, isSorted, isReset]
+    [filterStr, isSorted]
   );
   
 
   function reset() {
       setSort(false);
       setFilter('');
-      setReset(true);
   }
   
-  function filter() {
-    setFilter(filterRef.current.value);
-    cbChangeList(filterStr, isSorted, isReset)
-  }
-
-  
-      return (
-        <div className="Controls">
-          <input type="checkbox" checked={isSorted} onChange={() => setSort(!isSorted)}></input>
-          <input type='text'  ref={filterRef} value={filterStr} onChange={filter}></input>
-          <input type='button' value="Сброс" onClick={reset}></input>
-        </div>
-      )    
+return (
+    <div className="Controls">
+      <input type="checkbox" checked={isSorted} onChange={() => setSort(!isSorted)}></input>
+      <input type='text'  value={filterStr} onChange={(eo) => setFilter(eo.target.value)}></input>
+      <input type='button' value="Сброс" onClick={reset}></input>
+    </div>
+  )    
 };
 
 
