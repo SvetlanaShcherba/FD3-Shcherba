@@ -4,3 +4,4 @@
     { "name": "ластик", "code": 3, "price": "1.10 BYN", "count": 350, "url": "eraser.jpg" },
     { "name": "блокнот", "code": 4, "price": "3.70 BYN", "count": 50, "url": "notebook.jpg" }
 ]
+

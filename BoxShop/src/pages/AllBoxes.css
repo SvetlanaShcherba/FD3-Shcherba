@@ -1,0 +1,20 @@
+td {
+    border: 2px solid olivedrab;
+    text-align: center;
+}
+
+.Items {
+    margin: 25px;
+    border-collapse: collapse;
+}
+
+.Img {
+    width: 180px;
+    height: 180px;
+    margin: 0;
+}
+
+.Info {
+    width: 400px;
+    height: 180px;
+}

@@ -1,0 +1,11 @@
+.ItemInfo {
+    margin-top: 25px;
+    width: 700px;
+    height: 180px;
+    border-collapse: collapse;
+}
+
+.ItemInfo img{
+    width: 300px;
+    height: 300px;
+}

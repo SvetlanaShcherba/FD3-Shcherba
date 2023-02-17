@@ -1,0 +1,14 @@
+.PageLink {
+    color: black;
+    margin-right: 100px;
+}
+
+.ActivePageLink {
+    font-weight: bold;
+}
+
+.PageLinks {
+    background-color: olivedrab;
+    text-align: center;
+    padding: 15px 0;
+}
