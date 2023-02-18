@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { All } from '../components/All';
-import './AllBoxes.css';
 
-export const AllBoxes = ({listItems}) => {
+export const PageFilteredItems = ({listItems}) => {
     return (
       <All listItems={listItems}/>
     );
-};
+    
+}

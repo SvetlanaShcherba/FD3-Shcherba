@@ -1,15 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import { Item } from '../components/Item';
 
-export const All = ({ startItems, filter }) => {
-  const [listItems, setListItems] = useState(startItems);
+export const All = ({listItems}) => {
 
-    let newList = startItems.slice();
-    if (filter)
-        console.log(filter);
-
-    const code= newList.map(v =>
+  const code= listItems.map(v =>
     <Item
       item={v}
       key={v.code}
