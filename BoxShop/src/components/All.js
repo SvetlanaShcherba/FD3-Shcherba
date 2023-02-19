@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 import { Item } from '../components/Item';
 
@@ -13,6 +13,7 @@ export const All = ({listItems}) => {
       name={v.name}
       size={v.size}
       id={v.code}
+      countInShop={v.count}
     />
   ); 
      

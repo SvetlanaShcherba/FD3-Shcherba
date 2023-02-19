@@ -5,11 +5,12 @@ import './Filter.css';
 
 export const Filter = ({cbShowFilteredItems, startItems}) => {
   const [listItems, setListItems] = useState(startItems);
+  const [isDisabled, setDisabled] = useState(true);
+  const [isSorted1, setSort1] = useState(false);
+  const [isSorted2, setSort2] = useState(false);
+  const [filterClass, setFilterClass] = useState('Filter');
   const [check, setCheck] = useState({
     isCheck: {
-      /*1: false,
-      2: false,
-      3: false,*/
       '12*12': false,
       "12*15": false,
       "15*15": false,
@@ -22,17 +23,24 @@ export const Filter = ({cbShowFilteredItems, startItems}) => {
       "15*15*15": false,
       "20*15*6": false,
       "35.5*27*5.5": false,
-      
     },
   });
 
- useEffect(
+ let newList = startItems.slice();
+   
+  useEffect(
     () => {
-    cbShowFilteredItems(listItems);
-   }, [listItems, check]);
+    setSort1(isSorted1);
+    }, [isSorted1]);
+  
+  useEffect(
+      () => {
+      cbShowFilteredItems(listItems);
+  }, [listItems, check, isSorted1, isSorted2]);
 
- 
-  const updateFiltersFunc = (filter) =>   {
+  
+  function updateFiltersFunc (filter) {
+    setDisabled(false);
     setCheck((elem) => {
         return {
           isCheck: { ...elem.isCheck, [filter]: !elem.isCheck[filter] },
@@ -41,15 +49,23 @@ export const Filter = ({cbShowFilteredItems, startItems}) => {
   }
     
   function showBtnClick() {
-    let  newList= startItems.slice();
     let filter = check.isCheck;
-    console.log(check.isCheck);
-    if (filter) {
+    let filterV = Object.values(filter);
+    if (filterV.some( v => v===true)) {
       let filterArr = Object.keys(filter).filter(key => filter[key] === true); //элементы массива - id тех чекбоксов, которые true
       newList = newList.filter(v => filterArr.includes(v.size));
-      setListItems(newList);
+      console.log(newList+"newList");
     }
+    if (isSorted1) {
+      newList=newList.sort((x, y) => parseInt(y.price) - parseInt(x.price));
+    }
+    if (isSorted2) {
+      newList=newList.sort((x, y) => parseInt(x.price) - parseInt(y.price));
+    }
+    setListItems(newList);
+    setFilterClass('Filter');
   }
+  
 
   function reset() {
     setCheck({
@@ -69,43 +85,51 @@ export const Filter = ({cbShowFilteredItems, startItems}) => {
       }
     }, [check]);
     setListItems(startItems);
+    setDisabled(true);
+    setSort1(false);
+    setSort2(false);
+    setFilterClass('Filter');
   }
 
+  function getFilterClass() {
+    console.log("dsdfsd");
+    setFilterClass('FilterMobile');
+  }
+  
   return (
-    <div   className="Filter">
-      <div className='Filter-title'>Искать по параметрам:</div>
-      <form>
-        <div className='Filter-type'>
-          {/*<span>Тип коробки:</span><br />
-          <label><input type="checkbox" id="1" onChange={() => updateFiltersFunc(1)} checked={check.isCheck[1]}></input>Шляпные коробки</label><br />
-          <label><input type="checkbox" id="2" onChange={() => updateFiltersFunc(2)} checked={check.isCheck[2]}></input>Самосборные коробки</label><br />
-  <label><input type="checkbox" id="3" onChange={() => updateFiltersFunc(3)} checked={check.isCheck[3]}></input>Коробки-книги</label><br />*/}
+    <div className={filterClass}>
 
+      <a href='#' className={'fa fa-bars fa-2x'} onClick={getFilterClass}></a>
+
+      <div className='Filter-title'>Сортировать:</div>
+      <div className='Filter-price'>
+        <label><input type="checkbox" onChange={() => {setSort1(!isSorted1); setDisabled(false) }} checked={isSorted1} disabled={isSorted2}></input>По убыванию цены</label><br />
+        <label><input type="checkbox"  onChange={() => {setSort2(!isSorted2); setDisabled(false) }} checked={isSorted2} disabled={isSorted1}></input>По возрастанию цены</label><br />
+      </div>
+
+      <div className='Filter-title'>Искать по параметрам:</div>
+      <div>
           <span>Размер, см:</span><br />
-          <label><input type="checkbox" id="12*12" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["12*12"]}></input>12*12</label><br />
+        <div  className='Filter-type'>
+          <input type="checkbox" id="12*12" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["12*12"]}></input>12*12<br />
           <label><input type="checkbox" id="12*15" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["12*15"]}></input>12*15</label><br />
           <label><input type="checkbox" id="15*15" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["15*15"]}></input>15*15</label><br />
           <label><input type="checkbox" id="18*18" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["18*18"]}></input>18*18</label><br />
           <label><input type="checkbox" id="20*6" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["20*6"]}></input>20*6</label><br />
-          <label><input type="checkbox" id="20*10" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["20*10"]}></input>20*10</label><br />
+          <label><input type="checkbox" id="20*10" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["20*10"]}></input>20*10</label>
+        </div>
+        <div  className='Filter-type'>
           <label><input type="checkbox" id="20*20" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["20*20"]}></input>20*20</label><br />
           <label><input type="checkbox" id="30*20" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["30*20"]}></input>30*20</label><br />
           <label><input type="checkbox" id="35*10" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["35*10"]}></input>35*10</label><br />
           <label><input type="checkbox" id="15*15*15" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["15*15*15"]}></input>15*15*15</label><br />
           <label><input type="checkbox" id="20*15*6" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["20*15*6"]}></input>20*15*6</label><br />
           <label><input type="checkbox" id="35.5*27*5.5" onChange={(eo) => updateFiltersFunc(eo.target.id)} checked={check.isCheck["35.5*27*5.5"]}></input>35.5*27*5.5</label><br />
-        
-          {/*<span>Крышка:</span><br />
-          <label><input type="checkbox" id="16" onChange={() => updateFiltersFunc(16)} checked={check.isCheck[16]}></input>С крышкой</label><br />
-          <label><input type="checkbox" id="17" onChange={() => updateFiltersFunc(17)} checked={check.isCheck[17]}></input>Без крышки</label><br />
-        
-          <span>Цвет:</span><br />
-          <label><input type="checkbox" id="18" onChange={() => updateFiltersFunc(18)} checked={check.isCheck[18]}></input>Однотонные</label><br />
-<label><input type="checkbox" id="19" onChange={() => updateFiltersFunc(19)} checked={check.isCheck[19]}></input>С принтом</label><br />*/}
-        </div>
-      </form>
+        </div>  
+      </div>
+      
 
-      <NavLink to={"/filter"}><input className='Filter-btn' type='button' value='Показать' onClick={showBtnClick} /></NavLink><br />
+      <NavLink to={"/filter"}><input className={(isDisabled) ? "filter-btn-disabled" : 'Filter-btn'} type='button' value='Показать' onClick={showBtnClick} disabled={isDisabled}/></NavLink>
       <NavLink to={"/"}><input className='Filter-btn' type='button' value='Сброс' onClick={reset} /></NavLink><br />
       
     </div>
@@ -113,3 +137,4 @@ export const Filter = ({cbShowFilteredItems, startItems}) => {
     );
 
 };
+

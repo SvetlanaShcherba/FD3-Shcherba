@@ -1,9 +1,9 @@
 [
-    { "url": "./img/1.jpg", "name": "Коробка самосборная 15*15*15 с крышкой. Крафт/Белая", "code": 1, "price": "2.30 BYN", "count": 107, "lid": true, "color": "solid color", "size": "15*15*15"},
-    { "url": "./img/2.jpg", "name": "Коробка самосборная 15*15*15 с синей крышкой", "code": 2, "price": "3.30 BYN", "count": 100, "lid": true, "color": "solid color", "size": "15*15*15"},
-    { "url": "./img/3.jpg", "name": "Коробка самосборная 15*15*15 с зеленой крышкой", "code": 3, "price": "3.30 BYN", "count": 84, "lid": true, "color": "solid color", "size": "15*15*15"},
-    { "url": "./img/4.JPG", "name": "Коробка самосборная 15*15*15 с салатовой крышкой", "code": 4, "price": "3.30 BYN", "count": 20, "lid": true, "color": "solid color", "size": "15*15*15"},
-    { "url": "./img/5.jpg", "name": "Коробка самосборная 15*15*15 с серебристой крышкой", "code": 5, "price": "3.30 BYN", "count": 53, "lid": true, "color": "solid color", "size": "15*15*15"},
+    { "url": "./img/1.jpg", "name": "Коробка самосборная 15*15*15 с крышкой.", "code": 1, "price": "2.30 BYN", "count": 2, "lid": true, "color": "solid color", "size": "15*15*15"},
+    { "url": "./img/2.jpg", "name": "Коробка самосборная 15*15*15 с синей крышкой", "code": 2, "price": "3.30 BYN", "count": 5, "lid": true, "color": "solid color", "size": "15*15*15"},
+    { "url": "./img/3.jpg", "name": "Коробка самосборная 15*15*15 с зеленой крышкой", "code": 3, "price": "3.30 BYN", "count": 15, "lid": true, "color": "solid color", "size": "15*15*15"},
+    { "url": "./img/4.JPG", "name": "Коробка самосборная 15*15*15 с салатовой крышкой", "code": 4, "price": "3.30 BYN", "count": 3, "lid": true, "color": "solid color", "size": "15*15*15"},
+    { "url": "./img/5.jpg", "name": "Коробка самосборная 15*15*15 с серебристой крышкой", "code": 5, "price": "3.30 BYN", "count": 14, "lid": true, "color": "solid color", "size": "15*15*15"},
 
     { "url": "./img/6.jpg", "name": "Коробка-книга красная", "code": 6, "price": "17.0 BYN", "count": 13, "lid": true, "color": "solid color", "size": "20*15*6"},
     { "url": "./img/7.jpg", "name": "Коробка-книга розовая", "code": 7, "price": "17.0 BYN", "count": 10, "lid": true, "color": "solid color", "size": "20*15*6"},
@@ -12,7 +12,7 @@
     { "url": "./img/9.jpg", "name": "Коробка цилиндрическая", "code": 9, "price": "7.90 BYN", "count": 30, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/10.jpg", "name": "Коробка цилиндрическая", "code": 10, "price": "7.90 BYN", "count": 40, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/11.jpg", "name": "Коробка цилиндрическая", "code": 11, "price": "7.90 BYN", "count": 102, "lid": false, "color": "print", "size":"15*15"},
-    { "url": "./img/12.jpg", "name": "Коробка цилиндрическая", "code": 12, "price": "7.90 BYN", "count": 120, "lid": false, "color": "print", "size": "15*15"},
+    { "url": "./img/12.jpg", "name": "Коробка цилиндрическая", "code": 12, "price": "7.90 BYN", "count": 12, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/13.jpg", "name": "Коробка цилиндрическая", "code": 13, "price": "7.90 BYN", "count": 5, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/14.jpg", "name": "Коробка цилиндрическая", "code": 14, "price": "7.90 BYN", "count": 16, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/15.jpg", "name": "Коробка цилиндрическая", "code": 15, "price": "7.90 BYN", "count": 50, "lid": false, "color": "print", "size": "15*15"},
@@ -24,7 +24,7 @@
     { "url": "./img/21.jpg", "name": "Коробка цилиндрическая", "code": 21, "price": "7.90 BYN", "count": 61, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/22.jpg", "name": "Коробка цилиндрическая", "code": 22, "price": "7.90 BYN", "count": 30, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/23.jpg", "name": "Коробка цилиндрическая", "code": 23, "price": "7.90 BYN", "count": 25, "lid": false, "color": "print", "size": "15*15"},
-    { "url": "./img/24.jpg", "name": "Коробка цилиндрическая", "code": 24, "price": "7.90 BYN", "count": 230, "lid": false, "color": "print", "size": "15*15"},
+    { "url": "./img/24.jpg", "name": "Коробка цилиндрическая", "code": 24, "price": "7.90 BYN", "count": 8, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/25.jpg", "name": "Коробка цилиндрическая", "code": 25, "price": "7.90 BYN", "count": 18, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/26.jpg", "name": "Коробка цилиндрическая", "code": 26, "price": "7.90 BYN", "count": 10, "lid": false, "color": "print", "size": "15*15"},
     { "url": "./img/27.jpg", "name": "Коробка цилиндрическая", "code": 27, "price": "7.90 BYN", "count": 1, "lid": false, "color": "print", "size": "15*15"},
@@ -49,10 +49,8 @@
     { "url": "./img/43.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 43, "price": "8.80 BYN", "count": 40, "lid": true, "color": "print", "size": "15*15"},
 
     { "url": "./img/44.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 44, "price": "10.86 BYN", "count": 22, "lid": true, "color": "print", "size": "20*20"},
-
-    { "url": "./img/45.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 45, "price": "4.20 BYN", "count": 22, "lid": true, "color": "solid color", "size": "35.5*27*5.5"},
-    { "url": "./img/46.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 46, "price": "4.75 BYN", "count": 22, "lid": true, "color": "solid color", "size": "35.5*27*5.5"},
-
+    { "url": "./img/45.jpg", "name": "Коробка самосборная с крышкой", "code": 45, "price": "4.30 BYN", "count": 22, "lid": true, "color": "solid color", "size": "35.5*27*5.5"},
+    { "url": "./img/46.jpg", "name": "Коробка самосборная с крышкой", "code": 46, "price": "4.30 BYN", "count": 22, "lid": true, "color": "solid color", "size": "35.5*27*5.5"},
     { "url": "./img/47.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 47, "price": "9.17 BYN", "count": 39, "lid": true, "color": "solid color", "size": "20*6"},
     { "url": "./img/48.jpg", "name": "Коробка цилиндрическая с крышкой", "code": 48, "price": "9.37 BYN", "count": 40, "lid": true, "color": "solid color", "size": "20*10"},
 
@@ -69,8 +67,8 @@
 
     { "url": "./img/56.jpg", "name": "Коробка бархатная", "code": 56, "price": "13.93 BYN", "count": 3, "lid": false, "color": "print", "size": "12*12"},
     { "url": "./img/57.jpg", "name": "Коробка бархатная", "code": 57, "price": "37 BYN", "count": 95, "lid": true, "color": "solid color", "size": "35*10"},
-    { "url": "./img/58.jpg", "name": "Коробка бархатная", "code": 58, "price": "13.93 BYN", "count": 16, "lid": true, "color": "solid color", "size": "18*18"},
-    { "url": "./img/59.jpg", "name": "Коробка бархатная", "code": 59, "price": "20.24 BYN", "count": 15, "lid": true, "color": "solid color", "size": "12*12"},
-    { "url": "./img/60.jpg", "name": "Коробка бархатная", "code": 60, "price": "20.24 BYN", "count": 15, "lid": true, "color": "solid color", "size": "12*12"}    
+    { "url": "./img/58.jpg", "name": "Коробка бархатная", "code": 58, "price": "20.24BYN", "count": 16, "lid": true, "color": "solid color", "size": "18*18"},
+    { "url": "./img/59.jpg", "name": "Коробка бархатная", "code": 59, "price": "15.48 BYN", "count": 15, "lid": true, "color": "solid color", "size": "12*12"},
+    { "url": "./img/60.jpg", "name": "Коробка бархатная", "code": 60, "price": "15.48 BYN", "count": 15, "lid": true, "color": "solid color", "size": "12*12"}    
     
 ]

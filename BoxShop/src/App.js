@@ -1,14 +1,20 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-
 import { PagesLinks } from './components/PagesLinks';
 import { PagesRouter } from './routes/PagesRouter';
 
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import combinedReducer from './redux/reducers.js';
+
+const store=createStore(combinedReducer);
+
 export const App = () => (
-    <BrowserRouter>
-        <div>
-            <PagesLinks />
-            <PagesRouter />
-        </div>
-    </BrowserRouter>
+    <Provider store={store}>
+        <BrowserRouter>
+            <PagesLinks/>
+            <PagesRouter/>            
+        </BrowserRouter>
+    </Provider>
+    
 );
